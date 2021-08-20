@@ -7,7 +7,7 @@ webSocket.onmessage = (e) => {
 
 function handleSignallingData(data) {
   console.log("HANDLE " + data.type);
-  console.log("answer " + data.answer);
+  console.log("answer " + data.answer.toString());
   console.log("wubdiw " + window.location.href);
   switch (data.type) {
     case "answer":
@@ -79,6 +79,7 @@ function startCall() {
         );
         document.getElementById("remote-video").srcObject = e.stream; //10.1 set the remote webcam stream
       };
+      createAndSendOffer(); //11
       peerConn.onicecandidate = (e) => {
         //13
         console.log(e);
@@ -91,7 +92,6 @@ function startCall() {
           candidate: e.candidate,
         });
       };
-      createAndSendOffer(); //11
     },
     (error) => {
       console.log(error);
@@ -100,18 +100,21 @@ function startCall() {
 }
 
 function createAndSendOffer() {
+  console.log("CASO START");
   peerConn.createOffer(
     //11 initiates the creation of an SDP offer for the purpose of starting a new WebRTC connection to a remote peer
     //The SDP offer includes information about any candidates already gathered by the ICE agent, for the purpose of
     //being sent over the signaling channel to a POTENTIAL peer to request a connection
     (offer) => {
+      console.log("CASO");
       sendData({
         //11.1 send store_offer to server
         type: "store_offer",
         offer: offer, //unique offer code
       });
 
-      peerConn.setLocalDescription(offer); //sends offer with candidates to onicecandidate function
+      peerConn.setLocalDescription(offer);
+      console.log("SLD"); //sends offer with candidates to onicecandidate function
       //should transmit the candidate to the remote peer over the signaling channel so the remote peer can add it
       //to its set of remote candidates.
     },

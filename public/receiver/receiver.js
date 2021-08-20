@@ -7,6 +7,7 @@ webSocket.onmessage = (e) => {
 };
 
 function handleSignallingData(data) {
+  console.log("data offer " + data.offer.toString());
   switch (data.type) {
     case "offer":
       peerConn.setRemoteDescription(data.offer);
