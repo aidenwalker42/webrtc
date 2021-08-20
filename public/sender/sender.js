@@ -1,5 +1,5 @@
 const HOST = location.origin.replace(/^http/, "ws");
-const webSocket = new WebSocket(HOST);
+const webSocket = new WebSocket(window.location.href);
 console.log(HOST);
 webSocket.onmessage = (e) => {
   handleSignallingData(JSON.parse(e.data)); //7 get the data (conn and username) from the server and pass. goes to the handler but doesnt pass the switch case yet
@@ -7,6 +7,8 @@ webSocket.onmessage = (e) => {
 
 function handleSignallingData(data) {
   console.log("HANDLE " + data.type);
+  console.log("answer " + data.answer);
+  console.log("wubdiw " + window.location.href);
   switch (data.type) {
     case "answer":
       peerConn.setRemoteDescription(data.answer);

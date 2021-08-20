@@ -1,5 +1,5 @@
 const HOST = location.origin.replace(/^http/, "ws");
-const webSocket = new WebSocket(HOST);
+const webSocket = new WebSocket(window.location.href);
 console.log(HOST);
 
 webSocket.onmessage = (e) => {
