@@ -3,6 +3,7 @@ const webSocket = new WebSocket(HOST);
 console.log(HOST);
 
 webSocket.onmessage = (e) => {
+  console.log(e.data);
   handleSignallingData(JSON.parse(e.data));
 };
 
