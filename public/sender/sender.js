@@ -5,13 +5,15 @@ webSocket.onmessage = (e) => {
   handleSignallingData(JSON.parse(e.data)); //7 get the data (conn and username) from the server and pass. goes to the handler but doesnt pass the switch case yet
 };
 
-function handleSignallingData(data) {
+async function handleSignallingData(data) {
   console.log("HANDLE " + data.type);
   console.log("answer " + data.answer);
   console.log("wubdiw " + window.location.href);
   switch (data.type) {
     case "answer":
-      peerConn.setRemoteDescription(data.answer);
+      setTimeout(() => {
+        peerConn.setRemoteDescription(data.answer);
+      }, 3000);
       break;
     case "candidate":
       peerConn.addIceCandidate(data.candidate);
