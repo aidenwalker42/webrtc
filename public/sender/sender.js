@@ -1,5 +1,5 @@
-const HOST = location.origin.replace(/^http/, "ws");
-const webSocket = new WebSocket(window.location.href);
+const HOST = window.location.href.replace(/^https/, "ws");
+const webSocket = new WebSocket(HOST);
 console.log(HOST);
 webSocket.onmessage = (e) => {
   handleSignallingData(JSON.parse(e.data)); //7 get the data (conn and username) from the server and pass. goes to the handler but doesnt pass the switch case yet

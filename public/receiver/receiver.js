@@ -1,5 +1,5 @@
-const HOST = location.origin.replace(/^http/, "ws");
-const webSocket = new WebSocket(window.location.href);
+const HOST = window.location.href.replace(/^https/, "ws");
+const webSocket = new WebSocket(HOST);
 console.log(HOST);
 
 webSocket.onmessage = (e) => {
