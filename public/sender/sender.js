@@ -1,4 +1,4 @@
-const HOST = window.location.href.replace(/^https/, "ws");
+const HOST = window.location.href.replace(/^http/, "ws");
 const webSocket = new WebSocket(HOST);
 console.log(HOST);
 webSocket.onmessage = (e) => {
