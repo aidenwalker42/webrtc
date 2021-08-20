@@ -1,0 +1,6 @@
+video {
+  display: block;
+  border: 1px solid red;
+  width: 400px;
+  margin: 10px;
+}
