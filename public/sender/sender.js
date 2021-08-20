@@ -7,7 +7,7 @@ webSocket.onmessage = (e) => {
 
 function handleSignallingData(data) {
   console.log("HANDLE " + data.type);
-  console.log("answer " + data.answer.toString());
+  console.log("answer " + data.answer);
   console.log("wubdiw " + window.location.href);
   switch (data.type) {
     case "answer":
