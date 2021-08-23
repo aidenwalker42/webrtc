@@ -1,19 +1,19 @@
 const HOST = window.location.href.replace(/^http/, "ws");
 const webSocket = new WebSocket(HOST);
 console.log(HOST);
+let localStream;
+let peerConn;
 webSocket.onmessage = (e) => {
   handleSignallingData(JSON.parse(e.data)); //7 get the data (conn and username) from the server and pass. goes to the handler but doesnt pass the switch case yet
 };
 
-async function handleSignallingData(data) {
+function handleSignallingData(data) {
   console.log("HANDLE " + data.type);
   console.log("answer " + data.answer);
   console.log("wubdiw " + window.location.href);
   switch (data.type) {
     case "answer":
-      setTimeout(() => {
-        peerConn.setRemoteDescription(data.answer);
-      }, 3000);
+      peerConn.setRemoteDescription(data.answer);
       break;
     case "candidate":
       peerConn.addIceCandidate(data.candidate);
@@ -37,8 +37,6 @@ function sendData(data) {
   webSocket.send(JSON.stringify(data)); //3 send data to webSocket "message"
 }
 
-let localStream;
-let peerConn;
 function startCall() {
   //8
   navigator.getUserMedia(

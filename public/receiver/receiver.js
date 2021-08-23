@@ -2,6 +2,10 @@ const HOST = window.location.href.replace(/^http/, "ws");
 const webSocket = new WebSocket(HOST);
 console.log(HOST);
 
+let localStream;
+let peerConn;
+let username;
+
 webSocket.onmessage = (e) => {
   console.log(e.data);
   handleSignallingData(JSON.parse(e.data));
@@ -38,10 +42,6 @@ function sendData(data) {
   data.username = username;
   webSocket.send(JSON.stringify(data));
 }
-
-let localStream;
-let peerConn;
-let username;
 
 function joinCall() {
   username = document.getElementById("username-input").value; //15
